@@ -8,7 +8,12 @@ using Microsoft.Extensions.Options;
 
 
 var builder = WebApplication.CreateBuilder(args);
-var MyConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+//var MyConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+//var connectionString = "server=localhost;user=root;password=;database=bdinmobiliaria";
+var connectionString= builder.Configuration.GetConnectionString("MySqlConnection");
+var issuer= builder.Configuration.GetSection("TokenAuthentication")["Issuer"];
+var audience=builder.Configuration.GetSection("TokenAuthentication")["Audience"];
+var secretKey= builder.Configuration.GetSection("TokenAuthentication")["SecretKey"];
 builder.WebHost.UseUrls("http://localhost:5000","https://localhost:5001", "http://*:5000", "https://*:5001");
 
 // Add services to the container.
@@ -25,9 +30,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         ValidateAudience=true,
         ValidateLifetime=true,
         ValidateIssuerSigningKey=true,
-        ValidIssuer= MyConfig.GetValue<string>("appsettings:TokenAuthentication:Issuer"),
-        ValidAudience= MyConfig.GetValue<string>("appsettings:TokenAuthentication:Audience"),
-        IssuerSigningKey= new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(MyConfig.GetValue<string>("appsettings:TokenAuthentication:SecretKey"))),
+        ValidIssuer= issuer,
+        ValidAudience= audience,
+        IssuerSigningKey= new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(secretKey)),
     };
     options.Events = new JwtBearerEvents
 					{
@@ -39,8 +44,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 							var path = context.HttpContext.Request.Path;
 							if (!string.IsNullOrEmpty(accessToken) &&
 								(path.StartsWithSegments("/chatsegurohub") ||
-								path.StartsWithSegments("/api/propietarios/reset") ||
-								path.StartsWithSegments("/api/propietarios/token")))
+								path.StartsWithSegments("/propietarios/reset") ||
+								path.StartsWithSegments("/propietarios/token")))
 							{//reemplazar las urls por las necesarias ruta ⬆
 								context.Token = accessToken;
 							}
@@ -56,8 +61,8 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddDbContext<DataContext>(
 	options=> options.UseMySql(
-	MyConfig.GetValue<string>("appsettings:ConnectionStrings:MySql"),
-	ServerVersion.AutoDetect(MyConfig.GetValue<string>("appsettings:ConnectionStrings:MySql"))
+	connectionString,
+	ServerVersion.AutoDetect(connectionString)
 	)
 );
 
@@ -74,6 +79,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 
