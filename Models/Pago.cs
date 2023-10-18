@@ -16,5 +16,5 @@ public class Pago{
 		[Required][Display(Name = "Nro Contrato")]
 		public int ContratoId { get; set; }
 		[ForeignKey("ContratoId")]
-		public Contrato Contrato { get; set; }
+		public Contrato? Contrato { get; set; }
 }
