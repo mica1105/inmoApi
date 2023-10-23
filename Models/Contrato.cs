@@ -7,11 +7,10 @@ public class Contrato{
         [Key]
         [Display(Name = "Código")]
         public int Id { get; set; }
-        [Required] [Display(Name ="Inicia")]
+        [Required] 
         [DataType(DataType.Date)]
         public DateTime FechaInicio { get; set; }
         [Required]
-        [Display(Name = "Finaliza")]
         [DataType(DataType.Date)]
         public DateTime FechaFin { get; set; }
         [Required]

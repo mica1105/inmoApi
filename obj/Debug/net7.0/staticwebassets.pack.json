@@ -17,20 +17,40 @@
       "PackagePath": "staticwebassets\\Uploads\\avatar_13.png"
     },
     {
-      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_4005.jpg",
-      "PackagePath": "staticwebassets\\Uploads\\inmueble_4005.jpg"
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_1.jpeg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_1.jpeg"
     },
     {
-      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_4006.jpg",
-      "PackagePath": "staticwebassets\\Uploads\\inmueble_4006.jpg"
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_10.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_10.jpg"
     },
     {
-      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_4007.jpg",
-      "PackagePath": "staticwebassets\\Uploads\\inmueble_4007.jpg"
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_12.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_12.jpg"
     },
     {
-      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_4008.jpg",
-      "PackagePath": "staticwebassets\\Uploads\\inmueble_4008.jpg"
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_3.jpeg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_4.jpeg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_4.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_5.jpeg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_5.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_7.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_8.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_9.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\inmueble_9.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.inmoApi.props",

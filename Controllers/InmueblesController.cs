@@ -19,11 +19,13 @@ public class InmueblesController : ControllerBase
 {
     private readonly DataContext _context;
     private readonly IConfiguration config;
+    private readonly IWebHostEnvironment environment;
 
 
-    public InmueblesController(DataContext dataContext, IConfiguration conf){
+    public InmueblesController(DataContext dataContext, IConfiguration conf, IWebHostEnvironment env){
         _context= dataContext;
         config= conf;
+        environment= env;
     }
 
     [HttpGet]
@@ -56,6 +58,45 @@ public class InmueblesController : ControllerBase
             return BadRequest(ex);
         }
     }
+    	[HttpPost("Crear")]
+		public async Task<IActionResult> Crear([FromForm] Inmueble inmueble)
+		{
+			try
+			{
+				
+                    var u= User.Identity.Name;
+                    Propietario propietario = await _context.Propietario.FirstAsync(p=> p.Email== u);
+                    inmueble.Estado= false;
+                    inmueble.PropietarioId= propietario.Id;
+                    await _context.Inmueble.AddAsync(inmueble);
+					_context.SaveChanges();
+                    if (inmueble.ImagenFile != null && inmueble.Id > 0)
+                    {
+                        string wwwPath = environment.WebRootPath;
+                        string path = Path.Combine(wwwPath, "Uploads");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileName = "inmueble_" + inmueble.Id + Path.GetExtension(inmueble.ImagenFile.FileName);
+                        string pathCompleto = Path.Combine(path, fileName);
+                        inmueble.Imagen = Path.Combine("/Uploads", fileName);
+                        using (FileStream stream = new FileStream(pathCompleto, FileMode.Create))
+                        {
+                            inmueble.ImagenFile.CopyTo(stream);
+                        }
+                        _context.Inmueble.Update(inmueble);
+                        await _context.SaveChangesAsync();
+                    }
+                    return CreatedAtAction(nameof(GetInmuebles), new { id = inmueble.Id }, inmueble);
+
+            }
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+            }
+        }
+
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Inmueble>> GetInmueble(int id){

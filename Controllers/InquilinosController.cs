@@ -17,6 +17,7 @@ public class InquilinosController : ControllerBase
 {
     private readonly DataContext _context;
     private readonly IConfiguration config;
+    
 
 
     public InquilinosController(DataContext dataContext, IConfiguration conf){
