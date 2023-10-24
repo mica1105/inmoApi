@@ -63,7 +63,6 @@ public class InmueblesController : ControllerBase
 		{
 			try
 			{
-				
                     var u= User.Identity.Name;
                     Propietario propietario = await _context.Propietario.FirstAsync(p=> p.Email== u);
                     inmueble.Estado= false;
