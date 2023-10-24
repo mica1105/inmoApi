@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GlP2e6Qgw/KPByf55TIVKT7G9SvM5laYAOqgsFNCcVI=",
+  "Hash": "RiUeQf0B0rFrCgSzsHYNVkbKGqEU0BVg3JWYbA6smgM=",
   "Source": "inmoApi",
   "BasePath": "_content/inmoApi",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_10.png",
+      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_4.png",
       "SourceId": "inmoApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\",
       "BasePath": "_content/inmoApi",
-      "RelativePath": "Uploads/avatar_10.png",
+      "RelativePath": "Uploads/avatar_4.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,15 +31,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_10.png"
+      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_4.png"
     },
     {
-      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_1011.png",
+      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_5.png",
       "SourceId": "inmoApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\",
       "BasePath": "_content/inmoApi",
-      "RelativePath": "Uploads/avatar_1011.png",
+      "RelativePath": "Uploads/avatar_5.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -48,15 +48,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_1011.png"
+      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_5.png"
     },
     {
-      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_11.png",
+      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_6.png",
       "SourceId": "inmoApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\",
       "BasePath": "_content/inmoApi",
-      "RelativePath": "Uploads/avatar_11.png",
+      "RelativePath": "Uploads/avatar_6.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,15 +65,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_11.png"
+      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_6.png"
     },
     {
-      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_13.png",
+      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\avatar_8.png",
       "SourceId": "inmoApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\",
       "BasePath": "_content/inmoApi",
-      "RelativePath": "Uploads/avatar_13.png",
+      "RelativePath": "Uploads/avatar_8.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -82,7 +82,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_13.png"
+      "OriginalItemSpec": "wwwroot\\Uploads\\avatar_8.png"
     },
     {
       "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_1.jpeg",
