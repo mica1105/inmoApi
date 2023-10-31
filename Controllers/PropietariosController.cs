@@ -42,7 +42,8 @@ public class PropietariosController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-	/*
+	
+	/* Buscar Propietario por id
 	[HttpGet("{id}")]
 	[AllowAnonymous]
 	public async Task<IActionResult> Get(int id)
@@ -87,7 +88,6 @@ public class PropietariosController : ControllerBase
 						{
 							new Claim(ClaimTypes.Name, p.Email),
 							new Claim("FullName", p.Nombre + " " + p.Apellido),
-							new Claim(ClaimTypes.Role, "Propietario"),
 						};
 
 						var token = new JwtSecurityToken(
@@ -173,6 +173,59 @@ public class PropietariosController : ControllerBase
 		catch (Exception ex)
 		{
 			
+			return BadRequest(ex.Message);
+		}
+	}
+
+	[HttpPut("EditarClave")]
+	public async Task<IActionResult> CambiarClave([FromForm] string actual, [FromForm] string nueva)
+	{
+		try
+		{
+			string hash = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    	password: actual,
+                		salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
+                		prf: KeyDerivationPrf.HMACSHA1,
+                		iterationCount: 1000,
+                		numBytesRequested: 256 / 8
+			));
+			Propietario p = _context.Propietario.AsNoTracking().Where(x => x.Email == User.Identity.Name).First();
+			if(p.Clave!= hash){
+				return BadRequest("Error: clave actual ingresada incorrecta");
+			}
+			string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    	password: nueva,
+                		salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
+                		prf: KeyDerivationPrf.HMACSHA1,
+                		iterationCount: 1000,
+                		numBytesRequested: 256 / 8
+			));
+			if(p.Clave == hashed){
+				return BadRequest("Error: la clave nueva no puede ser igual a la actual");
+			}
+            p.Clave = hashed;
+			_context.Propietario.Update(p);
+			await _context.SaveChangesAsync();
+			var key = new SymmetricSecurityKey(
+							System.Text.Encoding.ASCII.GetBytes(config["TokenAuthentication:SecretKey"]));
+			var credenciales = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimTypes.Name, p.Email),
+				new Claim("FullName", p.Nombre + " " + p.Apellido),
+			};
+
+			var token = new JwtSecurityToken(
+				issuer: config["TokenAuthentication:Issuer"],
+				audience: config["TokenAuthentication:Audience"],
+				claims: claims,
+				expires: DateTime.Now.AddMinutes(60),
+				signingCredentials: credenciales
+			);
+			return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+		}
+		catch (Exception ex)
+		{
 			return BadRequest(ex.Message);
 		}
 	}
