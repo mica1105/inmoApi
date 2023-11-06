@@ -27,6 +27,54 @@ public class PropietariosController : ControllerBase
 		environment= env;
     }
 
+	// POST api/<controller>/login
+	[HttpPost("login")]
+	[AllowAnonymous]
+	public async Task<IActionResult> Login([FromForm] LoginView loginView)
+	{
+		try
+		{
+			if (ModelState.IsValid){
+				
+				string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+						password: loginView.Clave,
+						salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
+						prf: KeyDerivationPrf.HMACSHA1,
+						iterationCount: 1000,
+						numBytesRequested: 256 / 8
+					));
+				var p = await _context.Propietario.FirstOrDefaultAsync(x => x.Email == loginView.Usuario);
+				if (p == null || p.Clave != hashed)
+				{
+					return BadRequest("Nombre de usuario o clave incorrecta");
+				}	
+																					
+					var key = new SymmetricSecurityKey(
+						System.Text.Encoding.ASCII.GetBytes(config["TokenAuthentication:SecretKey"]));
+					var credenciales = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+					var claims = new List<Claim>
+					{
+						new Claim(ClaimTypes.Name, p.Email),
+						new Claim("FullName", p.Nombre + " " + p.Apellido),
+					};
+
+					var token = new JwtSecurityToken(
+						issuer: config["TokenAuthentication:Issuer"],
+						audience: config["TokenAuthentication:Audience"],
+						claims: claims,
+						expires: DateTime.Now.AddMinutes(60),
+						signingCredentials: credenciales
+					);
+				return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+			}
+			return BadRequest();
+		}
+		catch (Exception ex)
+		{
+			return BadRequest(ex.Message);
+		}
+	}
+
     [HttpGet]
     public async Task<ActionResult> Get(){
         try
@@ -42,117 +90,7 @@ public class PropietariosController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
-	
-	/* Buscar Propietario por id
-	[HttpGet("{id}")]
-	[AllowAnonymous]
-	public async Task<IActionResult> Get(int id)
-	{
-			try
-			{
-				var entidad = await _context.Propietario.SingleOrDefaultAsync(x => x.Id == id);
-				return entidad != null ? Ok(entidad) : NotFound();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-	}*/
 
-// POST api/<controller>/login
-		[HttpPost("login")]
-		[AllowAnonymous]
-		public async Task<IActionResult> Login([FromForm] LoginView loginView)
-		{
-			try
-			{
-				if (ModelState.IsValid){
-					
-					string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-							password: loginView.Clave,
-							salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
-							prf: KeyDerivationPrf.HMACSHA1,
-							iterationCount: 1000,
-							numBytesRequested: 256 / 8
-						));
-					var p = await _context.Propietario.FirstOrDefaultAsync(x => x.Email == loginView.Usuario);
-					if (p == null || p.Clave != hashed)
-					{
-						return BadRequest("Nombre de usuario o clave incorrecta");
-					}	
-																						
-						var key = new SymmetricSecurityKey(
-							System.Text.Encoding.ASCII.GetBytes(config["TokenAuthentication:SecretKey"]));
-						var credenciales = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-						var claims = new List<Claim>
-						{
-							new Claim(ClaimTypes.Name, p.Email),
-							new Claim("FullName", p.Nombre + " " + p.Apellido),
-						};
-
-						var token = new JwtSecurityToken(
-							issuer: config["TokenAuthentication:Issuer"],
-							audience: config["TokenAuthentication:Audience"],
-							claims: claims,
-							expires: DateTime.Now.AddMinutes(60),
-							signingCredentials: credenciales
-						);
-					return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-				}
-				return BadRequest();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
-
-		[HttpPost("email")]
-		[AllowAnonymous]
-		public async Task<IActionResult> GetByEmail([FromForm] string email)
-		{
-			try
-			{ //método sin autenticar, busca el propietario x email
-				var entidad = await _context.Propietario.FirstOrDefaultAsync(x => x.Email == email);
-				//para hacer: si el propietario existe, mandarle un email con un enlace con el token
-				//ese enlace servirá para resetear la contraseña
-				//Dominio sirve para armar el enlace, en local será la ip y en producción será el dominio www...
-				//var dominio = environment.IsDevelopment() ? HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString() : "www.misitio.com";
-				return entidad != null ? Ok(entidad) : NotFound();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
-		
-		[HttpPost("crear")]
-		[AllowAnonymous]
-		public async Task<IActionResult> Crear([FromForm] Propietario entidad)
-		{
-			try
-			{
-				if (ModelState.IsValid)
-				{
-					string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                    	password: entidad.Clave,
-                		salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
-                		prf: KeyDerivationPrf.HMACSHA1,
-                		iterationCount: 1000,
-                		numBytesRequested: 256 / 8
-					));
-                    entidad.Clave = hashed;
-					await _context.Propietario.AddAsync(entidad);
-					_context.SaveChanges();
-					return CreatedAtAction(nameof(Get), new { id = entidad.Id }, entidad);
-				}
-				return BadRequest();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
 
 	[HttpPut]
 	public async Task<IActionResult> Put(Propietario entidad)
@@ -229,4 +167,67 @@ public class PropietariosController : ControllerBase
 			return BadRequest(ex.Message);
 		}
 	}
+
+	/*
+    Buscar Propietario por id
+	[HttpGet("{id}")]
+	[AllowAnonymous]
+	public async Task<IActionResult> Get(int id)
+	{
+			try
+			{
+				var entidad = await _context.Propietario.SingleOrDefaultAsync(x => x.Id == id);
+				return entidad != null ? Ok(entidad) : NotFound();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+	}
+		[HttpPost("email")]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetByEmail([FromForm] string email)
+		{
+			try
+			{ //método sin autenticar, busca el propietario x email
+				var entidad = await _context.Propietario.FirstOrDefaultAsync(x => x.Email == email);
+				//para hacer: si el propietario existe, mandarle un email con un enlace con el token
+				//ese enlace servirá para resetear la contraseña
+				//Dominio sirve para armar el enlace, en local será la ip y en producción será el dominio www...
+				//var dominio = environment.IsDevelopment() ? HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString() : "www.misitio.com";
+				return entidad != null ? Ok(entidad) : NotFound();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+		
+		[HttpPost("crear")]
+		[AllowAnonymous]
+		public async Task<IActionResult> Crear([FromForm] Propietario entidad)
+		{
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    	password: entidad.Clave,
+                		salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
+                		prf: KeyDerivationPrf.HMACSHA1,
+                		iterationCount: 1000,
+                		numBytesRequested: 256 / 8
+					));
+                    entidad.Clave = hashed;
+					await _context.Propietario.AddAsync(entidad);
+					_context.SaveChanges();
+					return CreatedAtAction(nameof(Get), new { id = entidad.Id }, entidad);
+				}
+				return BadRequest();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}*/
 }

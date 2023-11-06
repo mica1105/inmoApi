@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "O6QARkAcleUVcMh4d4NtAP2pY6uJKaqRmqJTsTUkEy4=",
+  "Hash": "tfPd7oBt86it0PPgvs386yHMyqB3nMI+vKCGab72Ues=",
   "Source": "inmoApi",
   "BasePath": "_content/inmoApi",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\inmueble_13.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_14.jpg",
+      "SourceId": "inmoApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\",
+      "BasePath": "_content/inmoApi",
+      "RelativePath": "Uploads/inmueble_14.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\inmueble_14.jpg"
     },
     {
       "Identity": "C:\\Users\\AMARI\\OneDrive\\Documentos\\3er Año\\Lab III\\ApiInmo\\inmoApi\\wwwroot\\Uploads\\inmueble_3.jpeg",

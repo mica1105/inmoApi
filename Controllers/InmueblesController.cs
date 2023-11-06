@@ -42,6 +42,7 @@ public class InmueblesController : ControllerBase
             return BadRequest(ex);
         }
     }
+    
     [HttpGet("Alquilados")]
     public async Task<ActionResult<IEnumerable<Inmueble>>> GetPorInquilino(){
         try
@@ -96,21 +97,6 @@ public class InmueblesController : ControllerBase
             }
         }
 
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Inmueble>> GetInmueble(int id){
-        try
-        {
-            var usuario= User.Identity.Name;
-            var res= await _context.Inmueble.Include(e=> e.Duenio).Where( e => e.Duenio.Email == usuario).SingleAsync(e=> e.Id == id);
-            return Ok(res);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex);
-        }
-    }
-
     [HttpPut]
     public async Task<IActionResult> PutInmueble(Inmueble inmueble)
     {
@@ -131,4 +117,18 @@ public class InmueblesController : ControllerBase
             return BadRequest(ex);
         }
     }
+/*
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Inmueble>> GetInmueble(int id){
+        try
+        {
+            var usuario= User.Identity.Name;
+            var res= await _context.Inmueble.Include(e=> e.Duenio).Where( e => e.Duenio.Email == usuario).SingleAsync(e=> e.Id == id);
+            return Ok(res);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }*/
 }
